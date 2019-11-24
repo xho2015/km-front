@@ -1,0 +1,11 @@
+/WEB-INF/
+/out/
+*.ngjs
+*.ngpng
+*.ngcss
+*.ngmp3
+*.ngdom
+*.log
+*.class
+*.jar
+*.txt
