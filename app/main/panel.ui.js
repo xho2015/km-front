@@ -19,10 +19,6 @@ var PANEL = (function(my) {
 			}, "backgound_canvas");
 		};
 	};
-	
-	//panel & its id
-	my.panelId = 'panel_canvas';
-	my.panel = $('<canvas>').addClass('panel_canvas').attr({id : my.panelId}).appendTo($('#ngcontainer'));
 
 	//screen status
     my.screenStatus = {	isFull : false,	orientation : 0	};
@@ -106,28 +102,7 @@ var PANEL = (function(my) {
 	}
     
     function panelResize(w, h) {
-    	//resize canvas
-		$('#'+my.panelId).width(w); $('#'+my.panelId).height(h);
-		var canvas = document.getElementById(my.panelId);
-		canvas.width = w; canvas.height = h;
-		
-		//reset dimension
-		my.dimension.width = w;
-		my.dimension.height = h;
-		my.dimension.hwidth = w;
-		my.dimension.hheight = hmatrix.get(w);
-		var adim = amatrix.get(w).split(',');
-		my.dimension.awidth = parseInt(adim[0]);
-		my.dimension.aheight = parseInt(adim[1]);
-		my.dimension.swdith = w;
-		my.dimension.sheight = my.dimension.aheight;
-		var sy = my.dimension.hheight;
-		var ax = w - my.dimension.awidth;
-		var ay = sy;
-		//sub object resize
-		PANEL.screen.resize(0, sy, my.dimension.swdith, my.dimension.sheight);
-		PANEL.property.resize(ax, ay, my.dimension.awidth, my.dimension.aheight);
-		PANEL.header.resize(0, 0, my.dimension.hwidth, my.dimension.hheight);
+	
 	}
 	return my;
 }(PANEL || {}));
@@ -139,88 +114,7 @@ PANEL.header = (function() {
 	var style = {
 		PADDING: 16
 	};
-	var my = {};
 	
-	my.hoverIdx = -1;
-	my.container = new createjs.Container();
-	my.square = new createjs.Shape();
-	my.container.addChild(my.square);
-	my.Label1 = new createjs.Text("", "17px Arial", "#eeffff");
-	my.Label1.shadow = new createjs.Shadow("#090909", 1, 1, 6);
-	my.container.addChild(my.Label1);
-
-	my.hover = new createjs.Shape();
-	my.container.addChild(my.hover);
-
-	my.enlarge = new createjs.Bitmap(MAINAPP.resource.get("app.res.km-icons-3-36x36-ngpng"));
-	my.enlarge.shadow = new createjs.Shadow("#090909", 1, 1, 1);
-	my.container.addChild(my.enlarge);
-	
-	my.property = new createjs.Bitmap(MAINAPP.resource.get("app.res.km-icons-2-36x36-ngpng"));
-	my.property.shadow = new createjs.Shadow("#090909", 1, 1, 1);
-	my.container.addChild(my.property);
-	
-	my.profile = new createjs.Bitmap(MAINAPP.resource.get("app.res.km-icons-4-36x36-ngpng"));
-	my.profile.shadow = new createjs.Shadow("#090909", 1, 1, 1);
-	my.container.addChild(my.profile);
-	
-	my.stage = new createjs.Stage(PANEL.panelId);
-	my.stage.addChild(my.container);
-
-	function selectEffect(x, y)	{
-		var idx2 = my.container.getChildIndex(my.hover);
-		my.container.removeChild(my.hover);
-		my.hover = new createjs.Shape();
-		my.container.addChildAt(my.hover, idx2);
-		my.hover.graphics.beginFill("#5e5e5e").drawRect(x - style.PADDING/2, 0, 40+style.PADDING, PANEL.dimension.hheight);
-		my.stage.update();
-	};
-	
-	my.property.on("click", function(evt) {
-		PANEL.property.hide();
-		selectEffect(this.x, this.y);
-	});
-	
-	my.enlarge.on("click", function(evt) {
-		if (PANEL.isFullscreen())
-			PANEL.exitFullScreen();
-		else
-			PANEL.fullScreen();
-		selectEffect(this.x, this.y);
-	});
-	
-	my.profile.on("click", function(evt) {
-		selectEffect(this.x, this.y);
-	});
-	
-	my.resize = function(x, y, w, h) {
-		var idx = my.container.getChildIndex(my.square);
-		my.container.removeChild(my.square);
-		my.square = new createjs.Shape();
-		my.container.addChildAt(my.square, idx);
-		my.square.x = 0; my.square.y = 0;
-		my.square.graphics.beginFill("#1999d8").drawRect(x, y, w, h);
-		
-		my.Label1.x = 10; my.Label1.y = (h - 16) / 2;
-		my.Label1.text="NGO KidsMath " + PANEL.dimension.width+"X"+PANEL.dimension.height+","+PANEL.dimension.hheight+","+PANEL.dimension.awidth+"X"+PANEL.dimension.aheight;
-		my.property.x = (w - PANEL.dimension.hheight - style.PADDING/2);
-		my.property.y = (h - my.property.image.height) / 2;
-		my.property.hitArea  = new createjs.Shape();
-		my.property.hitArea.graphics.beginFill("#FFF000").drawRect(0,0,40,40);
-        
-		my.enlarge.x = (my.property.x - my.enlarge.image.width - style.PADDING);
-		my.enlarge.y = my.property.y;
-		my.enlarge.hitArea  = new createjs.Shape();
-		my.enlarge.hitArea.graphics.beginFill("#FFF000").drawRect(0,0,40,40);
-		
-		my.profile.x = (my.enlarge.x - my.profile.image.width - style.PADDING);
-		my.profile.y = my.enlarge.y;
-		my.profile.hitArea  = new createjs.Shape();
-		my.profile.hitArea.graphics.beginFill("#FFF000").drawRect(0,0,40,40);
-         
-		my.stage.drawRect = new createjs.Rectangle(x, y, w, h);
-		my.stage.update();
-	};
 	return my;
 }());
 
@@ -229,27 +123,6 @@ PANEL.header = (function() {
  */
 PANEL.property = (function() {
 	var my = {};
-	my.container = new createjs.Container();
-	my.square = new createjs.Shape();
-	my.container.addChild(my.square);
-	my.stage = new createjs.Stage(PANEL.panelId);
-	my.stage.addChild(my.container);
-	my.stage.alpha = 0.9;
-	
-	my.resize = function(x, y, w, h) {
-		var idx = my.container.getChildIndex(my.square);
-		my.container.removeChild(my.square);
-		my.square = new createjs.Shape();
-		my.container.addChildAt(my.square, idx);
-		my.square.graphics.beginFill("#1999d8").drawRect(x, y, w, h);
-		my.stage.drawRect = new createjs.Rectangle(x, y, w, h);
-		my.stage.update();
-	};
-	
-	my.hide = function() {
-		my.container.visible = !my.container.visible;
-		my.stage.update();
-	};
 	
 	return my;
 }());
@@ -260,27 +133,6 @@ PANEL.property = (function() {
 PANEL.screen = (function() {
 	var my = {};
 	
-	my.container = new createjs.Container();
-	my.square = new createjs.Shape();
-	my.container.addChild(my.square);
-	my.Label1 = new createjs.Text("", "16px Arial", "#F0FFF0");
-	my.container.addChild(my.Label1);
-	
-	my.stage = new createjs.Stage(PANEL.panelId);
-	my.stage.addChild(my.container);
-	my.stage.alpha = 0.3;
-	
-	my.resize = function(x, y, w, h) {
-		var idx = my.container.getChildIndex(my.square);
-		my.container.removeChild(my.square);
-		my.square = new createjs.Shape();
-		my.container.addChildAt(my.square, idx);
-		my.square.graphics.beginFill("#1F1F1F").drawRect(x, y, w, h);
-		my.Label1.x = x; my.Label1.y = y+10;
-		my.Label1.text = MAINAPP.DEBUGINFO.toString();
-		my.stage.drawRect = new createjs.Rectangle(x, y, w, h);
-		my.stage.update();
-	};
 	return my;
 }());
 
