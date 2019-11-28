@@ -115,7 +115,6 @@ PANEL.header = (function() {
 		PADDING: 16
 	};
 	
-	return my;
 }());
 
 /**

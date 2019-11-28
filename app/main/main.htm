@@ -3,6 +3,8 @@
 	<head>
 		<title>Kids Math首页</title>
 		<meta charset="utf-8"/>
+		<meta name="keywords" content="少儿数学,奥数,小学数学,小学奥数,初中数学,数学画图,图解数学"/>
+		<meta name="description" content="致力于小学初中数学教育,以图形化的手段直观展示数学原理,激发学生学习兴趣,提高学习质量。"/>
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -10,17 +12,82 @@
 		<style>
 			html, body {width:100%;height:100%;	font-family: Monospace;margin:0px;overflow:hidden;}
 			#background_screen{position:absolute;left:0px;top:0px;width:100%;height:100%;background-color:rgb(0,0,30);z-index:-1;}
-			#header_screen{width:100%;height:70px;background-color:rgba(106, 171, 214, 0.3);border-style:dashed;}
+			#header_screen{width:100%;height:84px;background-color:rgba(46, 46, 46, 0.78);border-style:dashed;}
 			#view_area{width:100%;height:88%;}
-			#panel_canvas{float: left;border-color:red;width:70%;height:100%; background-color: rgba(118, 118, 170, 0.2);border-style: solid;}	
-			#property_screen{float: right;border-color:red;width:29%;height:100%;background-color:rgba(106, 171, 214, 0.2);border-style:dashed;}
+			#panel_canvas{float: left;border-color:black;width:70%;height:100%; background-color: rgba(44, 44, 44, 0.2);border-style: solid;}	
+			#property_screen{float: right;border-color:black;width:29%;height:100%;background-color:rgba(46, 46, 46, 0.72);border-style:dashed;}
+			
+			.dropbtn {font-family: "Microsoft YaHei";	background-color: #26282680;	color: white;	padding: 26px;	font-size: 17px;	border: none;	cursor: pointer;}
+			.dropdown {	position: relative;	display: inline-block;}
+			.dropdown-content {font-family: "Microsoft YaHei";	font-size: 15px; display: none;	position: absolute;	background-color: #f9f9f9;	min-width: 160px;	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);	}
+			.dropdown-content a {	color: black;padding: 14px 16px;text-decoration: none;display: block;}
+			.dropdown-content a:hover {background-color: #838181}
+			.dropdown:hover .dropdown-content {	display: block;	}
+			.dropdown:hover .dropbtn {    background-color: #2e302e;}
+
+			ul { list-style-type: none; margin: 0; padding: 0;     background-color: #333;}
+			li { float: left; display: block;}
+			.logo{margin-left:30px; margin-right:10px; margin-top:2px;}
+			
 		</style>
 		<script src="@app.lib.jquery-1-9-1-min-ngjs@" type="text/javascript"></script>
 		<script src="@app.lib.taffy-min-ngjs@" type="text/javascript"></script>
 	</head>
 	<body id="ngcontainer">	
 		<div id="background_screen"></div>
-		<div id="header_screen"></div>
+		<div id="header_screen">
+			<ul>
+				<li>
+					<img src="/math/app/res/img-math-tree.png" class="logo"/>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn">小学基础</button>
+						<div class="dropdown-content">
+							<a href="/grade1">一年级</a>
+							<a href="/grade1">二年级</a>
+							<a href="/grade1">三年级</a>
+							<a href="/grade1">四年级</a>
+							<a href="/grade1">五年级</a>
+							<a href="/grade1">六年级</a>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn">小学奥数</button>
+						<div class="dropdown-content">
+							<a href="/grade1">一级</a>
+							<a href="/grade1">二级</a>
+							<a href="/grade1">三级</a>
+							<a href="/grade1">四级</a>
+							<a href="/grade1">五级</a>
+							<a href="/grade1">六级</a>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn">初中基础</button>
+						<div class="dropdown-content">
+							<a href="/grade1">一年级</a>
+							<a href="/grade1">二年级</a>
+							<a href="/grade1">三年级</a>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn">初中奥数</button>
+						<div class="dropdown-content">
+							<a href="/grade1">一年级</a>
+							<a href="/grade1">二年级</a>
+							<a href="/grade1">三年级</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<div id="view_area">
 			<div id="panel_canvas"></div>
 			<div id="property_screen"></div>		
