@@ -134,7 +134,7 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 	};
 	
 	function init3d() {
-		container3d = document.getElementById( 'three_screen' );
+		container3d = document.getElementById( 'panel_canvas' );
 		WIDTH_3D = container3d.clientWidth;
 		HEIGHT_3D = container3d.clientHeight;
 		// camera

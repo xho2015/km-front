@@ -104,6 +104,7 @@ var PANEL = (function(my) {
     function panelResize(w, h) {
 	
 	}
+
 	return my;
 }(PANEL || {}));
 
@@ -137,6 +138,8 @@ PANEL.screen = (function() {
 
 var MAIMUI = (function() {
 
+	var menuItem = new AppCommon.Map();
+	
 	var resizeEvents = [];
 	function registeResize(resize) {
 		resizeEvents.push(resize);
@@ -182,8 +185,15 @@ var MAIMUI = (function() {
 		onWindowResize();
 	}
 
+	/*choice menu item from main UI */
+	function choiceMenu(menuGradeId) {
+		menuItem = CACHE.load('module.grade.'+menuGradeId);
+		console.log(menuItem);
+	}
+
 	return {
-		init : init
+		init : init,
+		choiceMenu:choiceMenu
 	};
 })();
 
