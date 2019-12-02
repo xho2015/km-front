@@ -1,6 +1,7 @@
 var AppG1M2Demo = (function() {
 	
 	function init() {
+    /*
         var stage = new Kinetic.Stage({
             container: 'panel_canvas',
             width: 578,
@@ -23,10 +24,7 @@ var AppG1M2Demo = (function() {
             stroke: 'green',
             strokeWidth: 2,
             lineJoin: 'round',
-            /*
-             * line segments with a length of 33px
-             * with a gap of 10px
-             */
+  
             dashArray: [33, 10]
           });
      
@@ -37,19 +35,11 @@ var AppG1M2Demo = (function() {
             strokeWidth: 10,
             lineCap: 'round',
             lineJoin: 'round',
-            /*
-             * line segments with a length of 29px with a gap
-             * of 20px followed by a line segment of 0.001px (a dot)
-             * followed by a gap of 20px
-             */
+   
             dashArray: [29, 20, 0.001, 20]
           });
      
-          /*
-           * since each line has the same point array, we can
-           * adjust the position of each one using the
-           * move() method
-           */
+
           redLine.move(0, 5);
           greenLine.move(0, 55);
           blueLine.move(0, 105);
@@ -59,6 +49,37 @@ var AppG1M2Demo = (function() {
           layer.add(blueLine);
           stage.add(layer);
         stage.draw();
+*/
+
+      var stage = new Kinetic.Stage({
+        container: 'panel_canvas',
+        width: 578, height: 200
+      });
+      var layer = new Kinetic.Layer();
+
+      var circle = new Kinetic.Circle({
+        x: stage.width()/2,
+        y: stage.height()/2,
+        sides: 6,
+        radius: 70,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 4
+      });
+
+      layer.add(circle);
+      stage.add(layer);
+
+      var amplitude = 150;
+      var period = 2000;
+      var centerX = stage.width()/2;
+
+      //动画帧定义方法
+      var anim = new Kinetic.Animation(function(frame) {
+        circle.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + centerX);
+      }, layer);
+
+      anim.start(); //动画开始
     
 	}
 	
