@@ -136,9 +136,10 @@ PANEL.screen = (function() {
 	return my;
 }());
 
-var MAIMUI = (function() {
+var MAINUI = (function() {
 
 	var menuItem = new AppCommon.Map();
+	var courseItem = new AppCommon.Map();
 	
 	var resizeEvents = [];
 	function registeResize(resize) {
@@ -189,11 +190,29 @@ var MAIMUI = (function() {
 	function choiceMenu(menuGradeId) {
 		menuItem = CACHE.load('module.grade.'+menuGradeId);
 		console.log(menuItem);
+		$('#module_list').empty();
+		$.each(menuItem, function(i, val){     
+			$('#module_list').append('<li><a href="#" onclick="MAINUI.selectCourse(\''+val.mid+'\')">'+val.name+'</a></li>');
+			console.log(val);
+		});   
+	}
+
+	/*selected course by mid */
+	function selectCourse(mid) {
+		courseItem = CACHE.load('bom.module.'+mid);
+		console.log(courseItem);
+
+		var readyFn = function() {
+			eval(mid+".init();");
+		}
+
+		LIBRARY.loadRetry(courseItem, readyFn);	
 	}
 
 	return {
 		init : init,
-		choiceMenu:choiceMenu
+		choiceMenu:choiceMenu,
+		selectCourse:selectCourse
 	};
 })();
 

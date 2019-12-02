@@ -1,4 +1,4 @@
-var AppG1M1Demo1 = $.ngoModule(function() {
+var AppG1M1Demo = (function() {
 	
 	var gui, params;
 	var pannel;
@@ -52,7 +52,7 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 	    		onResize();
 	    	}
 		};
-		gui = new dat.gui.GUI({ autoPlace: false });
+		/*gui = new dat.gui.GUI({ autoPlace: false });
 		gui.add(params, 'width').min(500).max(1902).step(10).listen();
 		gui.add(params, 'height').min(400).max(1080).step(10).listen();
 		gui.add(params, 'fullScreen');
@@ -61,6 +61,7 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 		gui.add(params, 'show3d');
 		gui.add(params, 'resize');
 		gui.domElement.id = 'gui';
+		*/
 	    //var gui_container = document.getElementById("gui_screen");
 		//gui_container.appendChild(gui.domElement);
 	};
@@ -160,7 +161,7 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 	
 		// cubes
 		cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
-		cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xfeb74c, map: new THREE.TextureLoader().load( "/app/res/square-outline-textured.ngpng" ) } );
+		cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xfeb74c, map: new THREE.TextureLoader().load( "/math/app/res/texture1.png" ) } );
 		
 		// grid
 		var gridHelper = new THREE.GridHelper( 1000, 20 );
@@ -204,7 +205,7 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 		params.width = window.innerWidth;;
 		params.height = window.innerHeight;
 	
-		container3d = document.getElementById( 'three_screen' );
+		container3d = document.getElementById( 'panel_canvas' );
 		WIDTH_3D = container3d.clientWidth;
 		HEIGHT_3D = container3d.clientHeight;
 	
@@ -278,4 +279,4 @@ var AppG1M1Demo1 = $.ngoModule(function() {
 		init : init
 	};
 
-}());
+})();

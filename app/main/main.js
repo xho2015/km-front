@@ -7,7 +7,7 @@ var MAINAPP = $.ngoModule(function() {
 	var ready = function() {
 		var temp = TAFFY(lib);
 		DEBUGINFO.put("app.main.panel-ui-min-ngjs", temp({name:'app.main.panel-ui-min-ngjs'}).first().ver);
-		MAIMUI.init();
+		MAINUI.init();
 	};
 
 	var fail = function(url) {

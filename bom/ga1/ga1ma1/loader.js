@@ -1,11 +1,20 @@
-var G1M1LOADER = $.ngoModule(function() {
+var ga1ma1 = (function() {
 	
 	function init() {
-		alert("G1M1 loader init...");
+		$("#panel_canvas").empty();
+		
+		var libs = CACHE.load('bom.module.lib3d');
+		
+		var readyFn = function() {
+			AppG1M1Demo.init();
+		}
+
+		LIBRARY.loadRetry(libs, readyFn);
+		
 	}
 	
 	return {
 		init : init
 	};
 
-}());
+})();

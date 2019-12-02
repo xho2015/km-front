@@ -25,10 +25,13 @@
 			.dropdown:hover .dropdown-content {	display: block;	}
 			.dropdown:hover .dropbtn {    background-color: #2e302e;}
 
-			ul { list-style-type: none; margin: 0; padding: 0;     background-color: #333;}
-			li { float: left; display: block;}
+			.main_menu_ul { list-style-type: none; margin: 0; padding: 0;     background-color: #333;}
+			.main_menu_ul li { float: left; display: block;}
 			.logo{margin-left:30px; margin-right:10px; margin-top:2px;}
 			
+			.property_ul{list-style-type: none; margin: 0; padding: 0;     background-color: #333;}
+			.property_ul li {min-height:100px; display: block; border: solid; border-color: white;}
+			.property_ul li a {display: block; color: white;}
 		</style>
 		<script src="@app.lib.jquery-1-9-1-min-ngjs@" type="text/javascript"></script>
 		<script src="@app.lib.taffy-min-ngjs@" type="text/javascript"></script>
@@ -36,7 +39,7 @@
 	<body id="ngcontainer">	
 		<div id="background_screen"></div>
 		<div id="header_screen">
-			<ul>
+			<ul class="main_menu_ul">
 				<li>
 					<img src="/math/app/res/img-math-tree.png" class="logo"/>
 				</li>
@@ -44,12 +47,12 @@
 					<div class="dropdown">
 						<button class="dropbtn">小学基础</button>
 						<div class="dropdown-content">
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga1')">一年级</a>
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga2')">二年级</a>
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga3')">三年级</a>
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga4')">四年级</a>
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga5')">五年级</a>
-							<a href="javascript:void(0)" onclick="MAIMUI.choiceMenu('ga6')">六年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga1')">一年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga2')">二年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga3')">三年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga4')">四年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga5')">五年级</a>
+							<a href="javascript:void(0)" onclick="MAINUI.choiceMenu('ga6')">六年级</a>
 						</div>
 					</div>
 				</li>
@@ -89,8 +92,14 @@
 			</ul>
 		</div>
 		<div id="view_area">
-			<div id="panel_canvas"></div>
-			<div id="property_screen"></div>		
+			<div id="panel_canvas">
+
+			</div>
+			<div id="property_screen">
+				<ul class="property_ul" id="module_list">
+									
+				</ul>
+			</div>		
 		</div>
 		<script>
 			var AppSettings = (function() {
