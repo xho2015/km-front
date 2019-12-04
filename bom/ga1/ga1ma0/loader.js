@@ -1,15 +1,15 @@
-var ga1ma2 = (function() {
+var ga1ma0 = (function() {
 	
 	function init() {
 		$("#panel_canvas").empty();
-
+		
 		var libs = CACHE.load('bom.module.lib2d');
 		
 		var readyFn = function() {
-			AppGa1Ma2.init();
+			AppGa1Ma0.init();
 		}
 
-		LIBRARY.loadRetry(libs, readyFn);
+		LIBRARY.loadRetry(libs, readyFn);		
 	}
 	
 	return {
