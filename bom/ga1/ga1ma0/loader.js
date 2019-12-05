@@ -6,7 +6,7 @@ var ga1ma0 = (function() {
 		var libs = CACHE.load('bom.module.lib2d');
 		
 		var readyFn = function() {
-			AppGa1Ma0.init();
+			AppGa1Ma0Demo.init();
 		}
 
 		LIBRARY.loadRetry(libs, readyFn);		
