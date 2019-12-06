@@ -1,7 +1,7 @@
 var ga1ma1 = (function() {
 	
 	function init() {
-		$("#panel_canvas").empty();
+		MAINUI.clearCanvas();
 		
 		var libs = CACHE.load('bom.module.lib3d');
 		

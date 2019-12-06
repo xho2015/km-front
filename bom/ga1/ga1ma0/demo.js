@@ -11,6 +11,8 @@ var AppGa1Ma0Demo = (function() {
         var messageTop = 300;
         var strokeWidth = 4;
         var count = 0;
+        var maxCount = 9;
+        var duration = 1.4;
 
         var stage = new Konva.Stage({
         container: 'panel_canvas',
@@ -57,7 +59,7 @@ var AppGa1Ma0Demo = (function() {
 
             xoff += (blockSize + strokeWidth);
 
-            if (count < 10) {
+            if (count < maxCount) {
                 fadeIn(rect1, xoff, blockTop ); 
             }
         }
@@ -66,7 +68,7 @@ var AppGa1Ma0Demo = (function() {
             shape.visible(true); 
             new Konva.Tween({
                 node: shape,
-                duration: 2,
+                duration: duration,
                 x: posX,
                 y: posY,
                 rotation: 0,

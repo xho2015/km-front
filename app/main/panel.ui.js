@@ -192,7 +192,7 @@ var MAINUI = (function() {
 		console.log(menuItem);
 		$('#module_list').empty();
 		$.each(menuItem, function(i, val){     
-			$('#module_list').append('<li><a href="#" onclick="MAINUI.selectCourse(\''+val.mid+'\')">'+val.name+'</a></li>');
+			$('#module_list').append('<li id=\'li_'+val.mid+'\'><a href="#" onclick="MAINUI.selectCourse(\''+val.mid+'\')">'+val.name+'</a></li>');
 			console.log(val);
 		});   
 	}
@@ -203,16 +203,26 @@ var MAINUI = (function() {
 		console.log(courseItem);
 
 		var readyFn = function() {
+			effectOfRun(mid);
 			eval(mid+".init();");
 		}
 
 		LIBRARY.loadRetry(courseItem, readyFn);	
 	}
 
+	function effectOfRun(mid) {
+	
+	}
+
+	function clearCanvas(){
+		$("#panel_canvas").empty();
+	}
+
 	return {
 		init : init,
 		choiceMenu:choiceMenu,
-		selectCourse:selectCourse
+		selectCourse:selectCourse,
+		clearCanvas:clearCanvas
 	};
 })();
 
