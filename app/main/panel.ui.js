@@ -2,7 +2,9 @@
  * NGO main panel user interface. ver6 houxuyong@hotmail.com
  */
 var PANEL = (function(my) {
-	my.name = 'NGO Panel GUI ver.8';
+	my.name = 'NGO Panel GUI ver-1.0';
+
+	var resizeEvents = [];
 	
 	//background
 	my.bgcontainer = $('#background_screen');
@@ -22,29 +24,6 @@ var PANEL = (function(my) {
 
 	//screen status
     my.screenStatus = {	isFull : false,	orientation : 0	};
-    
-    //panel dimensions
-    my.dimension = {
-    	width: 0,  	height: 0, 
-    	hwidth:0,  	hheight: 0,
-    	swidth: 0, 	sheight: 0,
-    	awidth: 0, 	aheight: 0
-    };
-    
-    //screen resolution matrix
-    var pmatrix = [[ 1600, 900 ], [ 1440, 810 ], [ 1280, 720 ],
-		[ 1120, 630 ], [ 960, 540 ], [ 800, 450 ], [ 640, 360 ],
-		[ 600, 340 ], [ 340, 240 ] ];
-
-    //header resolution matrix
-    var hmatrix = new AppCommon.Map().putArray([[ 1600, 80 ], [ 1440, 80 ], [ 1280, 80 ],
-		[ 1120, 60 ], [ 960, 60 ], [ 800, 40 ], [ 640, 40 ],
-		[ 600, 40 ], [ 340, 40 ]]);
-    
-    //property resolution matrix
-    var amatrix = new AppCommon.Map().putArray([[1600, '320,820' ], [ 1440, '320,730' ], [ 1280, '320,640' ],
-		[ 1120, '240,570' ], [ 960, '240,480' ], [ 800, '180,410' ], [ 640, '180,320' ],
-		[ 600, '180,300' ], [ 340, '0,0' ]]);
     
     //full screen checker
     my.isFullscreen = function () {
@@ -78,92 +57,31 @@ var PANEL = (function(my) {
 		// match resolution matrix by current window dimension
 		var winWidth = window.innerWidth;
 		var winHeight = window.innerHeight;
-		
-		for (m in pmatrix) {
-			if (winWidth > pmatrix[m][0] && winHeight > pmatrix[m][1]) {
-				backgroundResize(pmatrix[m][0], pmatrix[m][1]);   	
-				panelResize(pmatrix[m][0], pmatrix[m][1]);
-				console.log("panel dimension changed, width="+pmatrix[m][0]+", height="+pmatrix[m][1]);
-				break;
-			}
-		}
+		backgroundResize(winWidth, winHeight);   	
 	};
     
-    function backgroundResize(w, h) {
-    	$('#background_screen').width(window.innerWidth); $('#background_screen').height(window.innerHeight);
-    	var bgscreen = document.getElementById('background_screen');
-    	bgscreen.width = w; bgscreen.height = h;
-    	
-		$('#backgound_canvas').width(window.innerWidth); $('#backgound_canvas').height(window.innerHeight);
-		var bgcanvas = document.getElementById('backgound_canvas');
-		bgcanvas.width = w; bgcanvas.height = h;
-	
+    function backgroundResize(winWidth, winHeight) {
+		$('#background_screen').width(winWidth); 
+		$('#background_screen').height(winHeight);
+		$('#backgound_canvas').width(winWidth); 
+		$('#backgound_canvas').height(winHeight);
 		my.bgeffects();
 	}
-    
-    function panelResize(w, h) {
-	
-	}
 
-	return my;
-}(PANEL || {}));
-
-/**
- * panel header sub-module
- */
-PANEL.header = (function() {
-	var style = {
-		PADDING: 16
-	};
-	
-}());
-
-/**
- * panel property sub-module
- */
-PANEL.property = (function() {
-	var my = {};
-	
-	return my;
-}());
-
-/**
- * panel screen sub-module
- */
-PANEL.screen = (function() {
-	var my = {};
-	
-	return my;
-}());
-
-var MAINUI = (function() {
-
-	var menuItem = new AppCommon.Map();
-	var courseItem = new AppCommon.Map();
-	
-	var resizeEvents = [];
 	function registeResize(resize) {
 		resizeEvents.push(resize);
 		console.log("resize Events registed");
 	}
 
-	/*
-	 * the only sensor of window resize event
-	 */
+	/*the only sensor of window resize event*/	 
 	function onWindowResize() {
 		for (var i = 0; i < resizeEvents.length; i++) {
 			var resize = resizeEvents[i];
 			resize();
 		}
 	}
-
-	function onResize() {
-		PANEL.resize();
-	}
 	
-	/*
-	 * the only sensor of browser orientation change
-	 */
+	/* the only sensor of browser orientation change*/	 
 	function onOrientationChange() {
 		if (window.orientation === 180 || window.orientation === 0) {
 			PANEL.screenStatus.orientation = 1;
@@ -176,14 +94,58 @@ var MAINUI = (function() {
 		}
 	}
 
-	/*
-	 * will be invoked when this module loaded
-	 */
-	function init() {
+	/* will be invoked when this module loaded*/	 
+	my.init = function() {
 		window.addEventListener('resize', onWindowResize, false);
 		window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", onOrientationChange, false);
-		registeResize(onResize);
+		registeResize(my.resize);
 		onWindowResize();
+	}
+
+	return my;
+
+}(PANEL || {}));
+
+
+/**
+ * panel header sub-module
+ */
+PANEL.header = (function() {
+
+}());
+
+
+/**
+ * panel property sub-module
+ */
+PANEL.property = (function() {
+	var my = {};
+	
+	return my;
+}());
+
+
+/**
+ * panel screen sub-module
+ */
+PANEL.screen = (function() {
+	var my = {};
+	
+	return my;
+}());
+
+
+/**
+ * This module holds main UI facilities
+ */
+var MAINUI = (function() {
+
+	var menuItem = new AppCommon.Map();
+	var courseItem = new AppCommon.Map();
+	
+	/*will be invoked when this module loaded*/	 
+	function init() {
+		PANEL.init();
 	}
 
 	/*choice menu item from main UI */
@@ -201,19 +163,19 @@ var MAINUI = (function() {
 	function selectCourse(mid) {
 		courseItem = CACHE.load('bom.module.'+mid);
 		console.log(courseItem);
-
 		var readyFn = function() {
 			effectOfRun(mid);
 			eval(mid+".init();");
 		}
-
 		LIBRARY.loadRetry(courseItem, readyFn);	
 	}
 
+	/**exhibate effect when chose a class */
 	function effectOfRun(mid) {
 	
 	}
 
+	/** clear main panel DIV and all its sub nodes. */
 	function clearCanvas(){
 		$("#panel_canvas").empty();
 	}
