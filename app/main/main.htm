@@ -108,12 +108,11 @@
 			var AppSettings = (function() {
 				var my = {};
 				my.debug = @DEBUG@;
-				my.bganimate = true; my.framerate = 24;
+				my.bganimate = false; my.framerate = 24;
 				my.verSeed = '@VERSION_SEED@';
 				my.main = "@app.main.main-min-ngjs@";
 				return my;
 			})();
-			$(".dropdown").click(function(){MAINUI.clearCanvas();});
 		</script>
 		<script src="@app.main.common-min-ngjs@" type="text/javascript"></script>				
 		<script src="@app.main.bootstrap-min-ngjs@" type="text/javascript"></script>

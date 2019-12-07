@@ -3,10 +3,10 @@ var ga1ma1 = (function() {
 	function init() {
 		MAINUI.clearCanvas();
 		
-		var libs = CACHE.load('bom.module.lib3d');
+		var libs = CACHE.load('bom.module.lib2d');
 		
 		var readyFn = function() {
-			AppG1M1Demo.init();
+			AppGa1Ma1.init();
 		}
 
 		LIBRARY.loadRetry(libs, readyFn);

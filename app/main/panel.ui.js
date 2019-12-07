@@ -145,6 +145,9 @@ var MAINUI = (function() {
 	
 	/*will be invoked when this module loaded*/	 
 	function init() {
+		$(".dropdown").click(
+			function(){MAINUI.clearCanvas();});
+
 		PANEL.init();
 	}
 

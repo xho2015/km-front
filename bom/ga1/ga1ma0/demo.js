@@ -12,7 +12,7 @@ var AppGa1Ma0Demo = (function() {
         var strokeWidth = 4;
         var count = 0;
         var maxCount = 9;
-        var duration = 1.4;
+        var duration = 1;
 
         var stage = new Konva.Stage({
         container: 'panel_canvas',
