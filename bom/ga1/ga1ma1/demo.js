@@ -5,7 +5,7 @@ var AppGa1Ma1 = (function() {
         var cheight = $("#panel_canvas").height();
 
         var gTop = 140;
-        var gLeft = 80;
+        var gLeft = 120;
         var gWidth = 400;
         var gHeight = 300;
 
@@ -17,18 +17,16 @@ var AppGa1Ma1 = (function() {
         var tenPlaceCount = 0;
         var maxCount = 0;
         var duration = 0.6;
-        var NMAX = 45;
+        var NumMAX = 45;
 
         var stage = new Konva.Stage({container: 'panel_canvas',
             width: cwidth, height: cheight });
         var layer = new Konva.Layer();
 
         //Ten's place
-        var gradeTen = new Konva.Line({
-            points: [gLeft,gTop,  gLeft+gWidth,gTop,  gLeft+gWidth,gTop+gHeight,  gLeft,gTop+gHeight,  gLeft,gTop  ],
-            stroke: 'green',strokeWidth: 2, lineJoin: 'round',dash: [15, 8]});
-        layer.add(gradeTen);
-        var gTenText = new Konva.Text({x: gLeft,y: gTop - 60, 
+        var gradeTen = KUTIL.lineSquare(gLeft, gTop, gWidth, gHeight);
+            layer.add(gradeTen);
+        var gTenText = new Konva.Text({x: gLeft+gWidth/2,y: gTop - 60, 
             text: '十位',  fontSize: 20, fontFamily: 'Calibri', fill: '#ffffff'});
         layer.add(gTenText);
         var gTenDigit = new Konva.Text({x: gLeft+gWidth/2,y: gTop+gHeight+50, 
@@ -37,11 +35,9 @@ var AppGa1Ma1 = (function() {
 
         //One's place
         gLeft += gWidth + 50;
-        var gradeOne = new Konva.Line({
-            points: [gLeft,gTop,  gLeft+gWidth,gTop,  gLeft+gWidth,gTop+gHeight,  gLeft,gTop+gHeight,  gLeft,gTop  ],
-            stroke: 'green',strokeWidth: 2, lineJoin: 'round',dash: [15, 8]});
-        layer.add(gradeOne);
-        var gOneText = new Konva.Text({x: gLeft,y: gTop - 60, 
+        var gradeOne = KUTIL.lineSquare(gLeft, gTop, gWidth, gHeight);
+            layer.add(gradeOne);
+        var gOneText = new Konva.Text({x: gLeft+gWidth/2,y: gTop - 60, 
             text: '个位',  fontSize: 20, fontFamily: 'Calibri', fill: '#ffffff'});
         layer.add(gOneText);
         var gOneDigit = new Konva.Text({x: gLeft+gWidth/2,y: gTop+gHeight+50, 
@@ -50,7 +46,7 @@ var AppGa1Ma1 = (function() {
 
         //groups
         var groupOne = new Konva.Group({x: gLeft+blockSize*3,  y: gTop+blockSize*4,  rotation: 0  });
-        gLeft = 140;
+        gLeft = 160;
         var groupTen = new Konva.Group({x: gLeft+blockSize,  y: gTop+blockSize*4,  rotation: 0  });
         layer.add(groupTen);
         layer.add(groupOne);
@@ -58,12 +54,11 @@ var AppGa1Ma1 = (function() {
         stage.add(layer);
 
         function OnePlacefireNext() {
-            if (maxCount > NMAX)
+            if (maxCount > NumMAX)
                 return;
 
             if (onePlaceCount < 10) {
-                var rect = new Konva.Rect({
-                    x: 12 * blockSize, y: 0,  width: blockSize,  height: blockSize,
+                var rect = new Konva.Rect({ x: 12 * blockSize, y: 0,  width: blockSize,  height: blockSize,
                     fill: '#ffffff',  stroke: 'orange', strokeWidth: strokeWidth, visible : false, draggable:false
                 });       
                 groupOne.add(rect);
@@ -79,13 +74,6 @@ var AppGa1Ma1 = (function() {
             }
         }
 
-        function moveNodesTo(gFrom, gTo) {
-            for (var n = gFrom.getChildren().length -1; n>=0; n--) {
-                var shape = gFrom.getChildren()[n];
-                shape.moveTo(gTo);
-            }
-        }
-
         function showDigits() {
             gTenDigit.text(tenPlaceCount);
             gOneDigit.text(onePlaceCount+'');
@@ -96,7 +84,7 @@ var AppGa1Ma1 = (function() {
                 node: shape, duration: duration, x: posX,  y: posY,
                 rotation: 0, radius: blockSize / 2,pacity: 0.8, easing: Konva.Easings.EaseIn,
                 onFinish: function() {
-                    moveNodesTo(groupOne, cloneTen);
+                    KUTIL.groupNodesMoveTo(groupOne, cloneTen);
 
                     groupOne.x(gLeft+gWidth+blockSize*3);
                     groupOne.y(gTop+blockSize*3);

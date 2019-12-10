@@ -14,8 +14,8 @@
 			#background_screen{position:absolute;left:0px;top:0px;width:100%;height:100%;background-color:rgb(0,0,30);z-index:-1;}
 			#header_screen{width:100%;height:84px;background-color:rgba(46, 46, 46, 0.78);border-style:dashed;}
 			#view_area{width:100%;height:88%; overflow: hidden;}
-			#panel_canvas{float: left;border-color:black;width:70%;height:100%; background-color: rgba(44, 44, 44, 0.1);border-style: solid;}	
-			#property_screen{float: right;width:29%;height:100%;background-color:rgba(46, 46, 46, 0.72);}
+			#panel_canvas{float: left;border-color:black;width:76%;height:100%; background-color: rgba(44, 44, 44, 0.1);border-style: solid;}	
+			#property_screen{float: right;width:23%;height:100%;background-color:rgba(46, 46, 46, 0.72);}
 			
 			.dropbtn {margin-top: 5px;font-family: "Microsoft YaHei";background-color:rgba(46, 46, 46, 0.1);color: white;	padding: 26px;	font-size: 17px;	border: none;	cursor: pointer;}
 			.dropdown {	position: relative;	display: inline-block;}
@@ -108,7 +108,7 @@
 			var AppSettings = (function() {
 				var my = {};
 				my.debug = @DEBUG@;
-				my.bganimate = false; my.framerate = 24;
+				my.bganimate = true; my.framerate = 24;
 				my.verSeed = '@VERSION_SEED@';
 				my.main = "@app.main.main-min-ngjs@";
 				return my;

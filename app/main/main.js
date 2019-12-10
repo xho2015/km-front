@@ -16,7 +16,7 @@ var MAINAPP = $.ngoModule(function() {
 
 	function init() {
 		CACHE.refresh(); //this is the only place to refresh dump cache
-		lib = CACHE.load("bom.module.lib1");
+		lib = CACHE.load("bom.module.libui");
 		LIBRARY.loadRetry(lib, ready, fail, resource);
 	};
 

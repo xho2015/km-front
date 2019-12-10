@@ -25,7 +25,7 @@ var AppGa1Ma0Demo = (function() {
         var simpleText = new Konva.Text({
             x: stage.width() / 2,
             y: messageTop,
-            text: '提示：',
+            text: '',
             fontSize: 60,
             fontFamily: 'Calibri',
             fill: '#ffffff'
