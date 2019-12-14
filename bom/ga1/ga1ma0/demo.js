@@ -6,9 +6,9 @@ var AppGa1Ma0Demo = (function() {
         var cwidth = $("#panel_canvas").width();
         var cheight = $("#panel_canvas").height();
 
-        var blockTop = 100;
-        var blockSize = 60;
-        var messageTop = 300;
+        var blockTop = 200;
+        var blockSize = 44;
+        var messageTop = 500;
         var strokeWidth = 4;
         var count = 0;
         var maxCount = 9;
@@ -35,11 +35,19 @@ var AppGa1Ma0Demo = (function() {
         // shape offset to the center of the text shape after instantiating it
         simpleText.offsetX(simpleText.width() / 2);
 
+        var gLeft = 240;
+        var gTop = 120;
+        var gWidth = 600;
+        var gHeight = 300;
+
+        var gradeOne = KUTIL.lineSquare(gLeft, gTop, gWidth, gHeight);
+        layer.add(gradeOne);
+
         layer.add(simpleText);
 
         stage.add(layer);
 
-        var xoff = 100;
+        var xoff = 260;
 
         function fireNext() {
             var rect1 = new Konva.Rect({

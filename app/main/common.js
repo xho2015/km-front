@@ -254,12 +254,17 @@ var AppCommon = (function() {
 		}
 	};
 
+	function sleep(fn, ms) {
+		setTimeout(fn, ms);
+	}
+	
 	
 	return {
 		limitLoop : limitLoop,
 		Detector : Detector,
 		Map : Map,
-		toImage: toImage
+		toImage: toImage,
+		sleep:sleep
 	};
 
 })();

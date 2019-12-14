@@ -36,7 +36,7 @@ var AppGa1Ma1 = (function() {
         //One's place
         gLeft += gWidth + 50;
         var gradeOne = KUTIL.lineSquare(gLeft, gTop, gWidth, gHeight);
-            layer.add(gradeOne);
+        layer.add(gradeOne);
         var gOneText = new Konva.Text({x: gLeft+gWidth/2,y: gTop - 60, 
             text: '个位',  fontSize: 20, fontFamily: 'Calibri', fill: '#ffffff'});
         layer.add(gOneText);
