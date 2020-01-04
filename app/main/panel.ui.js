@@ -146,7 +146,9 @@ var MAINUI = (function() {
 	/*will be invoked when this module loaded*/	 
 	function init() {
 		$(".dropdown").click(
-			function(){MAINUI.clearCanvas();});
+			function(){MAINUI.clearCanvas();
+				showCourseId('');
+			});
 
 		PANEL.init();
 	}
@@ -167,27 +169,36 @@ var MAINUI = (function() {
 		courseItem = CACHE.load('bom.module.'+mid);
 		console.log(courseItem);
 		var readyFn = function() {
-			effectOfRun(mid);
+			showCourseId(mid);
 			eval(mid+".init();");
 		}
 		LIBRARY.loadRetry(courseItem, readyFn);	
 	}
 
 	/**exhibate effect when chose a class */
-	function effectOfRun(mid) {
-	
+	function showCourseId(mid) {
+		$("#courseLabel").text(mid);
 	}
 
 	/** clear main panel DIV and all its sub nodes. */
 	function clearCanvas(){
 		$("#panel_canvas").empty();
+		
+	}
+
+	function executeCourse() {
+		if (event.keyCode == 13) {
+			var courseId = $("#moduleIn").val();
+			selectCourse(courseId);
+		}
 	}
 
 	return {
 		init : init,
 		choiceMenu:choiceMenu,
 		selectCourse:selectCourse,
-		clearCanvas:clearCanvas
+		clearCanvas:clearCanvas,
+		executeCourse:executeCourse
 	};
 })();
 
