@@ -75,10 +75,14 @@ function clear() {
 }
 
 /**
- * variable assign value
+ * have variable assign value IN STACK
  */
-function va(param) {
+function assign(param) {
     var vname = param[0];  var vvalue = param[1];
+    if (STACK.get(vname)){
+        console.error("var ["+vname+"] has been decleared.");
+        alert("var ["+vname+"] has been decleared.");
+    }
     STACK.put(vname, vvalue);
     PC++; loop();
 }
@@ -158,12 +162,19 @@ function text(param) {
     var text1 = new Konva.Text({x: 0, y: 0, text: str, fontSize: 60,fontFamily: 'Calibri', fill: '#ffffff' });
     layer.add(text1);  layer.draw();
     STACK.put(vname, text1);
-    PC++; loop();for (i=2; i<param.length;i++) {
-        var vname = param[i];
-        var shape = STACK.get(vname);
-        oldFill.push(shape.fill());
-        shape.fill(fill);
-    }
+    PC++; loop();
+}
+
+/**
+ * private: clone a K object
+ */
+function clone(param) {
+    var vname = param[0];
+    var cname = param[1];
+    var nobj = STACK.get(vname).clone();
+    STACK.put(cname, nobj);
+    layer.add(nobj);
+    PC++; loop();
 }
 
 /**
@@ -251,6 +262,38 @@ function move(param) {
         },
         fill: "#ffffff"
     }).play();
+}
+
+function changeText(param) {
+    var vname = param[0];
+    var newText = param[1];
+    var obj = STACK.get(vname);
+    obj.text(newText);
+    layer.draw();
+    PC++; loop();
+}
+
+function destroy(param) {
+    var vname = param[0];
+    var obj = STACK.get(vname);
+    STACK.remove(vname);
+    obj.destroy();
+    layer.draw();
+    PC++; loop();
+}
+
+/**
+ * move a K object by Tween action
+ */
+function to(param) {
+    var vname = param[0]; var duration = param[1]; var posX = param[2]; var posY = param[3];
+    var shape = STACK.get(vname);
+    shape.visible(true); 
+    shape.to({duration: duration, x: posX, y: posY,
+        onFinish: function() {
+            PC++; loop();
+        }
+    });
 }
 
 
