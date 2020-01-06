@@ -75,9 +75,9 @@ function clear() {
 }
 
 /**
- * have variable assign value IN STACK
+ * define variable and assign value IN STACK
  */
-function assign(param) {
+function define(param) {
     var vname = param[0];  var vvalue = param[1];
     if (STACK.get(vname)){
         console.error("var ["+vname+"] has been decleared.");
@@ -206,6 +206,25 @@ function shine(param) {
  */
 function align(param) {
     var xPos = param[0];  var yPos = param[1];
+    for(i=2; i<param.length; i++) {
+        var vname = param[i];
+        var shape = STACK.get(vname);
+        shape.absolutePosition({x: xPos, y: yPos});
+        layer.draw();
+        xPos+=shape.width() * 1.2;
+    }
+    PC++; loop();
+}
+
+/**
+ * align a group of shape
+ */
+function alignBy(param) {
+    var xName = param[0];  
+    var yName = param[1];
+    var xPos = STACK.get(xName);  
+    var yPos = STACK.get(yName); 
+    
     for(i=2; i<param.length; i++) {
         var vname = param[i];
         var shape = STACK.get(vname);
