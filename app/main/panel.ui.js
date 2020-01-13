@@ -147,10 +147,16 @@ var MAINUI = (function() {
 	function init() {
 		$(".dropdown").click(
 			function(){MAINUI.clearCanvas();
-				showCourseId('');
+				showCourseInfo('','');
 			});
 
 		PANEL.init();
+
+		if (AppSettings.debug) {
+			var debugInfo = $('title').text() + ", screen="+ $("#panel_canvas").width();
+			$('title').text(debugInfo);
+		}
+		
 	}
 
 	/*choice menu item from main UI */
@@ -159,25 +165,31 @@ var MAINUI = (function() {
 		console.log(menuItem);
 		$('#module_list').empty();
 		$.each(menuItem, function(i, val){     
-			$('#module_list').append('<li id=\'li_'+val.mid+'\'><a href="#" onclick="MAINUI.selectCourse(\''+val.mid+'\')">'+val.name+'</a></li>');
+			$('#module_list').append('<li id=\'li_'+val.mid+'\' onclick="MAINUI.selectCourse(\''+val.mid+'\',\''+val.description+'\')"><a href="#">'+val.name+'</a></li>');
 			console.log(val);
 		});   
 	}
 
 	/*selected course by mid */
-	function selectCourse(mid) {
+	function selectCourse(mid,desc) {
 		courseItem = CACHE.load('bom.module.'+mid);
 		console.log(courseItem);
 		var readyFn = function() {
-			showCourseId(mid);
+			showCourseInfo(mid,desc);
 			eval(mid+".init();");
 		}
 		LIBRARY.loadRetry(courseItem, readyFn);	
 	}
 
+	function isSmallScreen() {
+		return $("#panel_canvas").width() < 800 ;
+	}
+	
+
 	/**exhibate effect when chose a class */
-	function showCourseId(mid) {
+	function showCourseInfo(mid, desc) {
 		$("#courseLabel").text(mid);
+		$("#courseDesc").text(desc);
 	}
 
 	/** clear main panel DIV and all its sub nodes. */
@@ -189,7 +201,7 @@ var MAINUI = (function() {
 	function executeCourse() {
 		if (event.keyCode == 13) {
 			var courseId = $("#moduleIn").val();
-			selectCourse(courseId);
+			selectCourse(courseId,'');
 		}
 	}
 
@@ -198,7 +210,8 @@ var MAINUI = (function() {
 		choiceMenu:choiceMenu,
 		selectCourse:selectCourse,
 		clearCanvas:clearCanvas,
-		executeCourse:executeCourse
+		executeCourse:executeCourse,
+		isSmallScreen:isSmallScreen
 	};
 })();
 
