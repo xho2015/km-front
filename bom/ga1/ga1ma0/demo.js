@@ -1,4 +1,4 @@
-var AppGa1Ma0Demo = (function() {
+var AppGa1Ma0 = (function() {
 	
 	function init() {
         

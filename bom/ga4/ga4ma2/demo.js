@@ -97,22 +97,20 @@ var AppGa4Ma2 = (function() {
         ART.code("shine", "800, 'red', 't213c'");
         ART.code("sleep", "500"); 
         ART.code("to", "'t213c', 1, 420, 280");
-        ART.code("changeText", "'t213c', '(0.4 +'");
+        ART.code("changeText", "'t213c', '(0.4'");
         
         ART.code("clone", "'t253', 't253c'"); 
         ART.code("shine", "800, 'red', 't253c'");
         ART.code("sleep", "500"); 
-        ART.code("to", "'t253c', 1, 420, 280");
-        ART.code("changeText", "'t253c', '(0.4 - 1.2'");
-        ART.code("destroy", "'t213c'"); 
-
+        ART.code("to", "'t253c', 1, 530, 280");
+        ART.code("changeText", "'t253c', '- 1.2'");
+        
         ART.code("clone", "'t273', 't273c'"); 
         ART.code("shine", "800, 'red', 't273c'");
         ART.code("sleep", "500"); 
-        ART.code("to", "'t273c', 1, 420, 280");
-        ART.code("changeText", "'t273c', '(0.4 - 1.2 + 0.8)'");
-        ART.code("destroy", "'t253c'"); 
-
+        ART.code("to", "'t273c', 1, 630, 280");
+        ART.code("changeText", "'t273c', ' + 0.8)'");
+        
         ART.code("text", "'t40', '='");
         ART.code("align", "150, 360, 't40'");
         ART.code("sleep", "1000"); 

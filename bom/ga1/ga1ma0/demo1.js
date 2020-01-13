@@ -1,70 +1,104 @@
-var AppGa1Ma0Demo1 = (function() {
+var AppGa1Ma0Small = (function() {
 	
 	function init() {
+        
 
-    var width = $("#panel_canvas").width();
-    var height = $("#panel_canvas").height();
+        var cwidth = $("#panel_canvas").width();
+        var cheight = $("#panel_canvas").height();
 
-    var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+        var blockTop = 200;
+        var blockSize = 34;
+        var messageTop = 480;
+        var strokeWidth = 4;
+        var count = 0;
+        var maxCount = 9;
+        var duration = 1;
 
-    function getRandomColor() {
-      return colors[Math.round(Math.random() * 5)];
+        var stage = new Konva.Stage({
+        container: 'panel_canvas',
+        width: cwidth,
+        height: cheight
+        });
+
+        var layer = new Konva.Layer();
+
+        var simpleText = new Konva.Text({
+            x: stage.width() / 2,
+            y: messageTop,
+            text: '',
+            fontSize: 60,
+            fontFamily: 'Calibri',
+            fill: '#ffffff'
+          });
+    
+        // to align text in the middle of the screen, we can set the
+        // shape offset to the center of the text shape after instantiating it
+        simpleText.offsetX(simpleText.width() / 2);
+
+        var gLeft = 140;
+        var gTop = 120;
+        var gWidth = 470;
+        var gHeight = 300;
+
+        var gradeOne = KUTIL.lineSquare(gLeft, gTop, gWidth, gHeight);
+        layer.add(gradeOne);
+
+        layer.add(simpleText);
+
+        stage.add(layer);
+
+        var xoff = 170;
+
+        function fireNext() {
+            var rect1 = new Konva.Rect({
+                x: cwidth - 100,
+                y: blockTop,
+                width: blockSize,
+                height: blockSize,
+                fill: '#ffffff',
+                stroke: 'orange',
+                strokeWidth: strokeWidth,
+                visible : false,
+                draggable:true
+            });
+          
+           
+            layer.add(rect1);
+
+            xoff += (blockSize + strokeWidth);
+
+            if (count < maxCount) {
+                fadeIn(rect1, xoff, blockTop ); 
+            }
+        }
+
+        function fadeIn(shape, posX, posY) { 
+            shape.visible(true); 
+            new Konva.Tween({
+                node: shape,
+                duration: duration,
+                x: posX,
+                y: posY,
+                rotation: 0,
+                radius: blockSize / 2,
+                opacity: 0.8,
+                easing: Konva.Easings.EaseIn,
+                onFinish: function() {
+                    count +=1;
+                    showMessage(count);
+                    fireNext();
+                },
+                fill: "#ffffff"
+            }).play();
+        } 
+
+        function showMessage(count) {
+           simpleText.text(count);
+        }
+
+        fireNext();
     }
-
-    function tango(layer) {
-      for (var n = 0; n < layer.getChildren().length; n++) {
-        var color = getRandomColor();
-        var shape = layer.getChildren()[n];
-        var stage = shape.getStage();
-        var radius = Math.random() * 100 + 20;
-
-        new Konva.Tween({
-          node: shape,
-          duration: 1,
-          x: Math.random() * stage.width(),
-          y: Math.random() * stage.height(),
-          rotation: Math.random() * 360,
-          radius: radius,
-          opacity: (radius - 20) / 100,
-          easing: Konva.Easings.EaseInOut,
-          fill: color
-        }).play();
-      }
-    }
-    var stage = new Konva.Stage({
-      container: 'panel_canvas',
-      width: width,
-      height: height
-    });
-
-    var layer = new Konva.Layer();
-
-    for (var n = 0; n < 10; n++) {
-      var radius = Math.random() * 100 + 20;
-      var color = getRandomColor();
-      var shape = new Konva.RegularPolygon({
-        x: Math.random() * stage.width(),
-        y: Math.random() * stage.height(),
-        sides: Math.ceil(Math.random() * 5 + 3),
-        radius: radius,
-        fill: color,
-        opacity: (radius - 20) / 100,
-        draggable: true
-      });
-
-      layer.add(shape);
-    }
-
-    stage.add(layer);
-
-    document.getElementById('panel_canvas').addEventListener(
-      'click',
-      function() {
-        tango(layer);
-      },
-      false
-    );
-	}
+    
 	
 	return {
 		init : init
